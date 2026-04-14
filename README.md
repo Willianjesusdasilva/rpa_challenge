@@ -8,26 +8,24 @@ Este repositório contém a resolução de três desafios técnicos progressivos
 
 ```
 .
-├── easy.py       # Desafio básico (autenticação simples)
-├── hard.py       # Desafio intermediário (challenge + certificado)
-├── extreme.py    # Desafio avançado (WebSocket + PoW + criptografia)
+├── challenges/easy.py       # Desafio básico (autenticação simples)
+├── challenges/hard.py       # Desafio intermediário (challenge + certificado)
+├── challenges/extreme.py    # Desafio avançado (WebSocket + PoW + criptografia)
 └── README.md
 ```
 
 ---
 
-## ⚙️ Requisitos
+## ⚙️ Execução (Sem dor de dependência)
 
-- Python 3.10+
-- Dependências:
-  - httpx
-  - cryptography
-  - websockets
+Este projeto utiliza o padrão de scripts com dependências embutidas.
 
-Instalação:
+👉 Basta usar o `uv run` para executar qualquer desafio sem instalar nada manualmente.
+
+Instale o uv (caso não tenha):
 
 ```bash
-pip install httpx cryptography websockets
+pip install uv
 ```
 
 ---
@@ -40,24 +38,11 @@ pip install httpx cryptography websockets
 
 📄 Arquivo: `easy.py`
 
-#### ✔️ Descrição
-
-Realiza autenticação simples via API REST utilizando `username` e `password`.
-
-#### 🔧 Fluxo
-
-1. Envia requisição POST para `/api/easy/login`
-2. Recebe resposta com status e payload
-
 #### ▶️ Execução
 
 ```bash
-python easy.py
+uv run ./challenges/easy.py
 ```
-
-#### ⏱️ Tempo de execução
-
-~0.2s
 
 ---
 
@@ -65,33 +50,11 @@ python easy.py
 
 📄 Arquivo: `hard.py`
 
-#### ✔️ Descrição
-
-Fluxo autenticado com:
-
-- Challenge baseado em hash
-- Download de certificado `.pfx`
-- Conversão para `.pem`
-- Autenticação mTLS (client certificate)
-
-#### 🔧 Fluxo
-
-1. Gera `nonce` e `timestamp`
-2. Calcula hash SHA256 (challenge)
-3. Realiza login
-4. Baixa certificado `.pfx`
-5. Converte para `.pem`
-6. Faz requisição autenticada com certificado
-
 #### ▶️ Execução
 
 ```bash
-python hard.py
+uv run ./challenges/hard.py
 ```
-
-#### ⏱️ Tempo de execução
-
-~1 a 2 segundos
 
 ---
 
@@ -99,39 +62,11 @@ python hard.py
 
 📄 Arquivo: `extreme.py`
 
-#### ✔️ Descrição
-
-Desafio avançado envolvendo:
-
-- WebSocket seguro (WSS)
-- Proof of Work (PoW)
-- Criptografia AES-CBC
-- Token intermediário
-- OTP dinâmico
-
-#### 🔧 Fluxo
-
-1. Inicializa sessão via `/api/extreme/init`
-2. Conecta via WebSocket
-3. Resolve desafio de PoW (multi-thread)
-4. Recebe token intermediário
-5. Valida token via API
-6. Recebe payload criptografado
-7. Descriptografa usando AES
-8. Extrai OTP
-9. Finaliza autenticação
-
 #### ▶️ Execução
 
 ```bash
-python extreme.py
+uv run ./challenges/extreme.py
 ```
-
-#### ⏱️ Tempo de execução
-
-~3 a 10 segundos (dependendo da dificuldade do PoW e CPU)
-
----
 
 ## 🔐 Técnicas Utilizadas
 
@@ -148,12 +83,6 @@ python extreme.py
 
 ## ⚠️ Observações
 
-- O projeto utiliza `verify=False` por se tratar de ambiente local (`localhost`).
-- Certificados são manipulados dinamicamente e removidos após uso.
-- O desafio `extreme` pode consumir CPU devido ao PoW.
-
----
-
-## 👨‍💻 Autor
-
-Projeto desenvolvido como parte de um teste técnico focado em automação e segurança.
+- Não é necessário instalar dependências manualmente
+- O `uv run` resolve tudo automaticamente a partir do header dos scripts
+- O desafio `extreme` pode consumir CPU devido ao PoW
