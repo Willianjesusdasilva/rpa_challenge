@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+client.pfx
+ca.crt
+*.pem
+*.key
+.venv/

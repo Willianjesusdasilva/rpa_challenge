@@ -4,8 +4,9 @@
 
 import httpx, hashlib, time, random, string, os, tempfile
 from cryptography.hazmat.primitives.serialization import pkcs12, Encoding, PrivateFormat, NoEncryption
+import time
 
-
+start = time.perf_counter()
 BASE = "https://localhost:3000"
 LOGIN = f"{BASE}/api/hard/login"
 
@@ -75,3 +76,5 @@ with httpx.Client(
 
 os.unlink(cert)
 os.unlink(key)
+elapsed = time.perf_counter() - start
+print(f"[HARD] Tempo total: {elapsed:.3f}s")

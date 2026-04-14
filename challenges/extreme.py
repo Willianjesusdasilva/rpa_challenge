@@ -1,7 +1,7 @@
 # /// script
 # dependencies = ["httpx", "websockets", "cryptography"]
 # ///
-
+import time
 import asyncio
 import hashlib
 import json
@@ -15,7 +15,7 @@ from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives.padding import PKCS7
 BASE = "https://localhost:3000"
 
-
+start = time.perf_counter()
 def solve_pow(prefix, difficulty):
     target = "0" * difficulty
     found = {"nonce": None}
@@ -152,6 +152,8 @@ async def main():
         print("FINAL STATUS:", final.status_code)
         print("FINAL BODY:", final.text)
         final.raise_for_status()
+        elapsed = time.perf_counter() - start
+        print(f"[EXTREME] Tempo total: {elapsed:.3f}s")
 
 
 if __name__ == "__main__":
